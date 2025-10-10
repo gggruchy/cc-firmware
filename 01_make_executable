@@ -1,0 +1,8 @@
+#!/bin/bash
+
+find . -type f -print0 | while IFS= read -r -d $'\0' file; do
+    if file "$file" | grep -qE '(LSB shared object|LSB executable|LSB pie executable|text executable)'; then
+        echo "Make Executable: $file"
+        chmod +x $file
+    fi
+done
