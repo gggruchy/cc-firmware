@@ -1,0 +1,196 @@
+{
+  "networkDeviceManager": {
+    "error": {
+      "webRtc": "Connection disconnected, please try again",
+      "webLinkError": "The maximum number of connections has been reached"
+    },
+    "menu": {
+      "control": "Control",
+      "monitor": "Monitoring",
+      "localFiles": "Local Files",
+      "printHistory": "Print History"
+    },
+    "header": {
+      "store": "ELEGOO STORE",
+      "storeUrl": "https://www.elegoo.com"
+    },
+    "control": {
+      "empty": "There is no file for now",
+      "speedList": [{
+        "name": "Silent",
+        "value": 50
+      }, {
+        "name": "Balanced",
+        "value": 100
+      }, {
+        "name": "Sport",
+        "value": 130
+      }, {
+        "name": "Ludicrous",
+        "value": 160
+      }],
+      "fileName": "File：",
+      "layerName": "Layer：",
+      "conductTime": "Elapsed Time：",
+      "surplusTime": "Remaining Time：",
+      "printerName": "Device Name：",
+      "file": "File",
+      "startPrinter": "Start Print",
+      "deleteFile": "Delete File",
+      "addX": "X+",
+      "reduceX": "X-",
+      "addY": "Y+",
+      "reduceY": "Y-",
+      "addZ": "Z↑",
+      "reduceZ": "Z↓",
+      "ip": "Device IP：",
+      "axisSuccess": "Modification Successful",
+      "axisFail": "Modification Failed",
+      "confirm": "confirm",
+      "axisError": {
+        "1": "The machine is busy",
+        "2": "Parameter error",
+        "3": "Please zero the moving axis before moving",
+        "4": "Zeroing failed",
+        "5": "Zeroing failed"
+      },
+      "printerSpeed": "Print Speed",
+      "fan": "Fan",
+      "lighting": "Lighting",
+      "temperature": "Temperature",
+      "name": "Name",
+      "currentTarget": "Current Value / Target Value",
+      "sprayNozzle": "Nozzle",
+      "hotBed": "Heated Bed",
+      "box": "Chamber",
+      "tipTitle": "Confirm Temperature",
+      "sprayNozzleTip": "Set Nozzle Temperature to {{temperature}}°C?",
+      "hotBedTip": "Set Heated Bed Temperature to {{temperature}}°C?",
+      "boxTip": "Set Chamber Temperature to {{temperature}}°C?",
+      "printerTime":"Elapsed Print Time：",
+      "residuePrinterTime": "Remaining Print Time：",
+      "currentLayer":"Layer Progress：",
+      "zoreSuccess": "Home Command Sent Successfully",
+      "zoreFail": "Home Command Failed",
+      "allSelect": "Select All",
+      "reprint": "Reprint",
+      "export": "Export",
+      "delete": "Delete",
+      "linkFail": "Connection Failed",
+      "rename": "Rename",
+      "printerBtn": "Print",
+      "fileSuccess": "Saved successfully",
+      "fileFail": "File type mismatch",
+      "history": {
+        "title": "Print History",
+        "fileName": "File Name",
+        "status": "Status",
+        "endTime": "End Time",
+        "startTime": "Start Time",
+        "totalUse": "Total Consumption",
+        "fileSize": "File Size",
+        "complete": "Complete",
+        "cancle": "Cancel",
+        "toolTitle": "Delete Record",
+        "deleteBody": "{{fileName}}Delete History Record?",
+        "exportFail": "File Not Found"
+      },
+      "localFile": {
+        "title": "Device Local Files",
+        "fileName": "File Name",
+        "fileSize": "File Size",
+        "layerHeight": "Layer Count",
+        "totalLayers": "Layer Height",
+        "createTime": "Creation Time",
+        "useLength": "Material Length",
+        "toolTitle": "Delete File",
+        "deleteBody": "Delete {{fileName}}File?",
+        "deleteSuccess": "Deletion Successful",
+        "deleteFail": "Deletion Failed",
+        "export": "Import",
+        "getDetailAck": {
+          "1":  "Parameter Error",
+          "2": "File Not Found"
+        }
+      },
+      "videoList": {
+        "title": "Video List",
+        "tableFileName": "File Name",
+        "tableFileSize": "File Size",
+        "tableCreateTime": "Creation Time",
+        "tableVideoDuration": "Video Duration",
+        "exportError": "Delay photography export failed, please try again later"
+      },
+      "taskModal": {
+        "title": "Send Print Task",
+        "sendButton": "Send",
+        "hotBedLeveling": "Heated Bed Leveling",
+        "videoSurveillance": "Time-lapse",
+        "texture": "Textured Build Plate (Side A)",
+        "light": "Smooth Build Plate (Side B)"
+      },
+      "fanModal": {
+        "title": "Fan Control",
+        "modal": "Model",
+        "auxiliary": "Side fan",
+        "box": "Chamber"
+      },
+      "lightModal": {
+        "title": "LED Control",
+        "led1": "Model light",
+        "led2": "Lighting"
+      },
+      "editNameModal": {
+        "editPrinterTitle": "Change Device Name",
+        "editFileTitle": "Change File Name",
+        "printerName": "Device Name",
+        "fileName": "File Name",
+        "cancle": "Cancel",
+        "edit": "Modify"
+      },
+      "printer": {
+        "0": "Device Started Printing。",
+        "1": "Device Busy",
+        "2": "File not found, please refresh the page",
+        "3": "MD5 Check Failed",
+        "4": "File Reading Failed",
+        "5": "Invalid Resolution",
+        "6": "Invalid Format",
+        "7": "Invalid Model"
+      },
+      "status": {
+        "wait": "Idle",
+        "loading": "Preparing",
+        "zeroing": "Homing",
+        "print": "Printing",
+        "suspending": "Pausing",
+        "suspended": "Paused",
+        "stoping": "Stopping",
+        "stoped": "Stopped",
+        "busy": "busy",
+        "leveling": "Leveling",
+        "complete": "Print Complete",
+        "sendFile": "File Sending",
+        "fileDetection": "File Checking",
+        "recovery": "Restoring",
+        "vibration": "Input shaping…",
+        "advance": "Incoming or outgoing materials",
+        "pidDetect": "Tuning the Nozzle PID ...",
+        "continueSuccess": "Resume Print Command Sent!",
+        "continueFail": "Resume Print Failed. Please Try Again!",
+        "stopSuccess": "Pause Command Sent!",
+        "stopFail": "Pause Failed. Please Try Again!",
+        "ceaseSuccess": "Stop Command Sent!",
+        "ceaseFail": "Stop Failed. Please Try Again"
+      },
+      "blackout": "Detected unfinished print tasks",
+      "resumePrint": "Resume Printing",
+      "cancleResume": "cancle",
+      "errorStatusReason": {
+        "45": "Consumables are about to run out, please replace consumables"
+      }
+    },
+    "localTitle": "Local Task Files",
+    "historyTitle": "Print History"
+  }
+}

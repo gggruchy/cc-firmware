@@ -1,0 +1,195 @@
+{
+  "networkDeviceManager": {
+    "error": {
+      "webRtc": "连接断开，请重试",
+      "webLinkError": "已达到最大连接数"
+    },
+    "menu": {
+      "control": "控制",
+      "monitor": "监控",
+      "localFiles": "本地文件",
+      "printHistory": "打印历史"
+    },
+    "header": {
+      "store": "ELEGOO STORE",
+      "storeUrl": "https://www.elegoo.com.cn"
+    },
+    "control": {
+      "empty": "暂无文件",
+      "speedList": [{
+        "name": "静音",
+        "value": 50
+      }, {
+        "name": "均衡",
+        "value": 100
+      }, {
+        "name": "运动",
+        "value": 130
+      }, {
+        "name": "狂暴",
+        "value": 160
+      }],
+      "fileName": "File：",
+      "layerName": "Layer：",
+      "conductTime": "进行时间：",
+      "surplusTime": "剩余时间：",
+      "printerName": "设备名称：",
+      "file": "文件",
+      "startPrinter": "开始打印",
+      "deleteFile": "删除文件",
+      "addX": "X+",
+      "reduceX": "X-",
+      "addY": "Y+",
+      "reduceY": "Y-",
+      "addZ": "Z↑",
+      "reduceZ": "Z↓",
+      "ip": "设备IP：",
+      "axisSuccess": "修改成功！",
+      "axisFail": "修改失败",
+      "confirm": "确认",
+      "axisError": {
+        "1": "机器在忙",
+        "2": "参数有误",
+        "3": "请在移动前将移动轴归零",
+        "4": "归零失败",
+        "5": "归零失败"
+      },
+      "printerSpeed": "打印速度",
+      "fan": "风扇",
+      "lighting": "照明",
+      "temperature": "温度",
+      "name": "名称",
+      "currentTarget": "当前值 / 目标值",
+      "sprayNozzle": "喷嘴",
+      "hotBed": "热床",
+      "box": "箱体",
+      "tipTitle": "温度确认",
+      "sprayNozzleTip": "是否将喷嘴温度修改为{{temperature}}°C？",
+      "hotBedTip": "是否将热床温度修改为{{temperature}}°C？",
+      "boxTip": "是否将箱体温度修改为{{temperature}}°C？",
+      "printerTime":"打印进行时间：",
+      "residuePrinterTime": "剩余打印时间：",
+      "currentLayer":"层进度：",
+      "zoreSuccess": "归零命令发送成功",
+      "zoreFail": "归零失败",
+      "allSelect": "全选",
+      "reprint": "重新打印",
+      "export": "导出",
+      "delete": "删除",
+      "linkFail": "连接失败",
+      "rename": "重命名",
+      "printerBtn": "打印",
+      "fileSuccess": "保存成功",
+      "fileFail": "文件类型不匹配",
+      "history": {
+        "title": "打印历史",
+        "fileName": "文件名称",
+        "status": "状态",
+        "endTime": "结束时间",
+        "startTime": "开始时间",
+        "totalUse": "总消耗",
+        "fileSize": "文件大小",
+        "complete": "完成",
+        "cancle": "取消",
+        "toolTitle": "删除记录",
+        "deleteBody": "是否删除{{fileName}}历史记录？",
+        "exportFail": "文件不存在"
+      },
+      "localFile": {
+        "title": "设备本地文件",
+        "fileName": "文件名称",
+        "fileSize": "文件大小",
+        "layerHeight": "层数",
+        "totalLayers": "层高",
+        "createTime": "创建时间",
+        "useLength": "耗材长度",
+        "toolTitle": "删除文件",
+        "deleteBody": "是否删除{{fileName}}文件？",
+        "deleteSuccess": "删除成功",
+        "deleteFail": "删除失败",
+        "export": "导入",
+        "getDetailAck": {
+          "1":  "参数有误",
+          "2": "文件不存在"
+        }
+      },
+      "videoList": {
+        "title": "视频列表",
+        "tableFileName": "文件名称",
+        "tableFileSize": "文件大小",
+        "tableCreateTime": "创建时间",
+        "tableVideoDuration": "视频时长"
+      },
+      "taskModal": {
+        "title": "发送打印任务",
+        "sendButton": "发送",
+        "hotBedLeveling": "热床调平",
+        "videoSurveillance": "延时摄影",
+        "texture": "纹理打印板(A面)",
+        "light": "光面打印板(B面)"
+      },
+      "fanModal": {
+        "title": "风扇控制",
+        "modal": "模型",
+        "auxiliary": "辅助",
+        "box": "机箱"
+      },
+      "lightModal": {
+        "title": "LED灯控制",
+        "led1": "模型灯",
+        "led2": "照明灯"
+      },
+      "editNameModal": {
+        "editPrinterTitle": "修改设备名称",
+        "editFileTitle": "修改文件名",
+        "printerName": "设备名称",
+        "fileName": "文件名称",
+        "cancle": "取消",
+        "edit": "修改"
+      },
+      "printer": {
+        "0": "设备已开始执行打印。",
+        "1": "设备忙",
+        "2": "未找到该文件，请刷新页面",
+        "3": "MD5校验失败",
+        "4": "文件读取失败",
+        "5": "非法分辨率",
+        "6": "非法格式",
+        "7": "非法机型"
+      },
+      "status": {
+        "wait": "空闲",
+        "loading": "准备中",
+        "zeroing": "归零中",
+        "print": "打印中",
+        "suspending": "正在暂停",
+        "suspended": "已暂停",
+        "stoping": "正在终止",
+        "stoped": "已终止",
+        "leveling": "调平中",
+        "busy": "忙碌",
+        "complete": "打印完成",
+        "sendFile": "文件发送中",
+        "fileDetection": "文件检测中",
+        "recovery": "恢复中",
+        "vibration": "振动优化中",
+        "advance": "进退料中",
+        "pidDetect": "PID检测中",
+        "continueSuccess": "继续打印命令已发送！",
+        "continueFail": "继续打印失败，请重试！",
+        "stopSuccess": "暂停命令已发送！",
+        "stopFail": "暂停失败，请重试！",
+        "ceaseSuccess": "停止命令已发送！",
+        "ceaseFail": "停止失败，请重试！"
+      },
+      "blackout": "检测到有未完成的打印任务",
+      "resumePrint": "恢复打印",
+      "cancleResume": "取消",
+      "errorStatusReason": {
+        "45": "耗材即将用尽，请更换耗材"
+      }
+    },
+    "localTitle": "本地任务文件",
+    "historyTitle": "任务打印历史"
+  }
+}
