@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Use find to iterate over all files in the current directory.
+find . -type f -print0 | while IFS= read -r -d $'\0' file; do
+    # Check if the file is ASCII text
+    if file -b "$file" | grep -q "ASCII text"; then
+        # Read the first line of the file
+        content=$(head -n 1 "$file")
+
+        # Get the directory of the current file
+        dir=$(dirname "$file")
+        # Get the basename of the file
+        filename=$(basename "$file")
+
+        # Construct the potential full path, resolving it relative to the file's directory
+        potential_path=$(realpath -m "$dir/$content" 2>/dev/null)
+
+        # Check if the content is a non-empty string and points to a valid file or directory
+        if [ -n "$content" ] && [ -e "$potential_path" ] && [ "$filename" != "$content" ]; then
+            #echo "cd \"$dir\" && ln -sf \"$content\" \"$filename\" && cd -"
+            cd "$dir" &>/dev/null && ln -sf "$content" "$filename" && cd - &>/dev/null
+        fi
+    fi
+done
