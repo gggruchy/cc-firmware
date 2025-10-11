@@ -1,0 +1,36 @@
+
+name: Build Firmware
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out cc-firmware repository
+      uses: actions/checkout@v3
+      with:
+        path: cc-firmware
+
+    - name: Check out cross-compiler repository
+      uses: actions/checkout@v3
+      with:
+        repository: ${{ github.repository_owner }}/arm-openwrt-linux-gnueabi-gcc.git
+        path: arm-openwrt-linux-gnueabi-gcc
+
+    - name: Build the firmware
+      run: |
+        cd cc-firmware
+        ./autoreleash.sh
+
+    - name: Upload firmware artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: firmware
+        path: cc-firmware/build/app
