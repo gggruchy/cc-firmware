@@ -79,4 +79,4 @@ ${pwd}/tools/widget/widget -g ${pwd}/resources/${proj_dir}/widget.csv ${pwd}/res
 mkdir ${pwd}/build
 cd ${pwd}/build
 cmake ${pwd}
-make -j19
+make -j19 && arm-openwrt-linux-gnueabi-strip app
