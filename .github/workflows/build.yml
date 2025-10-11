@@ -16,7 +16,7 @@ jobs:
         - name: Check out cc-firmware repository
           uses: actions/checkout@v4
           with:
-              path: cc-firmware
+              path: .
 
         - name: Check out cross-compiler repository
           uses: actions/checkout@v4
@@ -26,11 +26,10 @@ jobs:
 
         - name: Build the firmware
           run: |
-              cd cc-firmware
               ./autoreleash.sh
 
         - name: Upload firmware artifact
           uses: actions/upload-artifact@v4
           with:
               name: firmware
-              path: cc-firmware/build/app
+              path: build/app
