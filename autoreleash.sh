@@ -76,8 +76,13 @@ fi
 ${pwd}/tools/tr/tr -g ${pwd}/resources/${proj_dir}/translation.csv ${pwd}/resources/${proj_dir}/translation.bin
 ${pwd}/tools/widget/widget -g ${pwd}/resources/${proj_dir}/widget.csv ${pwd}/resources/${proj_dir}/widget.bin
 
+# Configure cross-compiler toolchain
 . ${pwd}/arm-openwrt-linux-gnueabi-gcc/environment-arm-openwrt-linux-gnueabi || (echo "Need to clone toolchain in .., aborting..." && exit 1)
 
+# Generate jenkins.sh verion file from Git version info, hashes, tags etc.
+./genjenkins.sh
+
+# Actually build the app
 mkdir ${pwd}/build
 cd ${pwd}/build
 cmake ${pwd}
