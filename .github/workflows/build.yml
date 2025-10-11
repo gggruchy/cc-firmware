@@ -12,25 +12,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-        steps:
-    - name: Check out cc-firmware repository
-      uses: actions/checkout@v4
-      with:
-        path: cc-firmware
+    steps:
+        - name: Check out cc-firmware repository
+          uses: actions/checkout@v4
+          with:
+              path: cc-firmware
 
-    - name: Check out cross-compiler repository
-      uses: actions/checkout@v4
-      with:
-        repository: ${{ github.repository_owner }}/arm-openwrt-linux-gnueabi-gcc.git
-        path: arm-openwrt-linux-gnueabi-gcc
+        - name: Check out cross-compiler repository
+          uses: actions/checkout@v4
+          with:
+              repository: ${{ github.repository_owner }}/arm-openwrt-linux-gnueabi-gcc.git
+              path: arm-openwrt-linux-gnueabi-gcc
 
-    - name: Build the firmware
-      run: |
-        cd cc-firmware
-        ./autoreleash.sh
+        - name: Build the firmware
+          run: |
+              cd cc-firmware
+              ./autoreleash.sh
 
-    - name: Upload firmware artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: firmware
-        path: cc-firmware/build/app
+        - name: Upload firmware artifact
+          uses: actions/upload-artifact@v4
+          with:
+              name: firmware
+              path: cc-firmware/build/app
