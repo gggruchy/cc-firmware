@@ -76,6 +76,8 @@ fi
 ${pwd}/tools/tr/tr -g ${pwd}/resources/${proj_dir}/translation.csv ${pwd}/resources/${proj_dir}/translation.bin
 ${pwd}/tools/widget/widget -g ${pwd}/resources/${proj_dir}/widget.csv ${pwd}/resources/${proj_dir}/widget.bin
 
+. ${pwd}/arm-openwrt-linux-gnueabi-gcc/environment-arm-openwrt-linux-gnueabi || (echo "Need to clone toolchain in .., aborting..." && exit 1)
+
 mkdir ${pwd}/build
 cd ${pwd}/build
 cmake ${pwd}
