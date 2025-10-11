@@ -21,7 +21,7 @@ jobs:
         - name: Check out cross-compiler repository
           uses: actions/checkout@v4
           with:
-              repository: ${{ github.repository_owner }}/arm-openwrt-linux-gnueabi-gcc.git
+              repository: ${{ github.repository_owner }}/../arm-openwrt-linux-gnueabi-gcc.git
               path: arm-openwrt-linux-gnueabi-gcc
 
         - name: Build the firmware
