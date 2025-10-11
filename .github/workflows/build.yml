@@ -4,7 +4,7 @@ name: Build Firmware
 on:
   push:
     branches: [ main ]
-    tags: [ 'v*' ]
+    tags: [ 'v*', 'OC_v*' ]
   pull_request:
     branches: [ main ]
 
