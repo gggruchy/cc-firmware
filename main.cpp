@@ -161,7 +161,7 @@ int main(int argc, char *argv[])
     ui_init();
     app_init();
 
-    //上电时删除本地与U盘.tmp后缀文件（复制文件过程中断电时，删除复制的文件）
+    //上电时删除本地与U盘.tmp后缀文件（复制文件过程中断电时，删除复制的文件）abc
     char disk_path[1024];
     if (hl_disk_get_default_mountpoint(HL_DISK_TYPE_USB, NULL, disk_path, sizeof(disk_path)) == 0)
         utils_vfork_system("rm %s/*.tmp", disk_path);
