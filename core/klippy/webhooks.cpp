@@ -1,6 +1,11 @@
 #include "webhooks.h"
 #include "klippy.h"
 #include "my_string.h"
+#include "debug.h"
+#define LOG_TAG "webhooks"
+#undef LOG_LEVEL
+#define LOG_LEVEL LOG_INFO
+#include "log.h"
 
 WebRequest::WebRequest(ClientConnection *client_conn, std::string request)
 {
