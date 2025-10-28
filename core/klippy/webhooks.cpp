@@ -5,15 +5,16 @@
 WebRequest::WebRequest(ClientConnection *client_conn, std::string request)
 {
 	m_client_conn = client_conn;
-	std::map<std::string, std::string> base_request;
 	std::string base_request = json.loads(request, object_hook=byteify);
-	if type(base_request) != dict:
+	if (type(base_request) != dict){
 		raise ValueError("Not a top-level dictionary")
+	}
 	m_id = base_request.get('id', None);
 	m_method = base_request.get('method');
 	m_params = base_request.get('params', {});
-	if type(self.method) != str or type(self.params) != dict:
+	if (type(self.method) != str or type(self.params) != dict){
 		raise ValueError("Invalid request type")
+	}
 	m_response = "";
 	m_is_error = false;
 }
@@ -87,7 +88,7 @@ void WebRequest::send(std::string data)
 {
 	if (m_response != "")
 	{
-		raise WebRequestError("Multiple calls to send not allowed")
+		raise WebRequestError("Multiple calls to send not allowed");
 	}
 	m_response = data;
 }
@@ -126,7 +127,7 @@ ServerSocket::ServerSocket(WebHooks *webhooks)
 	std::string is_fileinput = Printer::GetInstance()->get_start_args("debuginput");
 	if (server_address == "" || is_fileinput != "")
 	{
-		Do not enable server
+		//Do not enable server
 		return;
 	}
 	_remove_socket_file(server_address);
@@ -225,7 +226,7 @@ void ServerSocket::_remove_socket_file(std::string file_path)
 		os.remove(file_path)
 	except OSError:
 		if os.path.exists(file_path):
-			logging.exception(
+			LOG_E(
 				"webhooks: Unable to delete socket file '%s'"
 				% (file_path))
 			raise
@@ -258,7 +259,7 @@ void ClientConnection::set_client_info(std::string client_info, std::string stat
 {
 	if (state_msg is None)
 		state_msg = "Client info %s" % (repr(client_info),)
-	logging.info("webhooks client %s: %s", self.uid, state_msg)
+	LOG_I("webhooks client %s: %s", self.uid, state_msg)
 	log_id = "webhooks %s" % (self.uid,)
 	if client_info is None:
 		self.printer.set_rollover_info(log_id, None, log=False)
@@ -319,7 +320,7 @@ void ClientConnection::_process_request(WebRequest * web_request)
 	except Exception as e:
 		msg = ("Internal Error on WebRequest: %s"
 				% (web_request.get_method()))
-		logging.exception(msg)
+		LOG_E(msg)
 		web_request.set_error(WebRequestError(str(e)))
 		self.printer.invoke_shutdown(msg)
 	result = web_request.finish()
@@ -361,7 +362,7 @@ void ClientConnection::_do_send(double eventtime)
 			m_send_buffer = m_send_buffer.substr(ret_send);
 		else
 		{
-			logging.info("webhooks: Error sending server data,  closing socket")
+			LOG_I("webhooks: Error sending server data,  closing socket")
 			_close();
 			break;
 		}
@@ -436,7 +437,7 @@ void WebHooks::_handle_rpc_registration(WebRequest* web_request)
 	template = web_request.get_dict('response_template')
 	method = web_request.get_str('remote_method')
 	new_conn = web_request.get_client_connection();
-	logging.info("webhooks: registering remote method '%s' for connection id: %d" % (method, id(new_conn)))
+	LOG_I("webhooks: registering remote method '%s' for connection id: %d" % (method, id(new_conn)))
 	self._remote_methods.setdefault(method, {})[new_conn] = template
 }
         
@@ -451,7 +452,7 @@ std::function<void(WebRequest*)> WebHooks::get_callback(std::string path)
 	if (cb == nullptr)
 	{
 		msg = "webhooks: No registered callback for path '%s'" % (path)
-		logging.info(msg)
+		LOG_I(msg)
 		raise WebRequestError(msg)
 	}
 	return cb;
