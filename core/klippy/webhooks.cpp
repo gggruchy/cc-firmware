@@ -6,6 +6,10 @@
 #undef LOG_LEVEL
 #define LOG_LEVEL LOG_INFO
 #include "log.h"
+#ifdef SAMPLE_TIME
+#undef SAMPLE_TIME
+#endif
+#define SAMPLE_TIME 0.001
 
 WebRequest::WebRequest(ClientConnection *client_conn, std::string request)
 {
