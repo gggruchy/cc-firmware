@@ -1,25 +1,19 @@
 #include "webhooks.h"
 #include "klippy.h"
 #include "my_string.h"
-#include "debug.h"
-#define LOG_TAG "webhooks"
-#undef LOG_LEVEL
-#define LOG_LEVEL LOG_INFO
-#include "log.h"
 
 WebRequest::WebRequest(ClientConnection *client_conn, std::string request)
 {
 	m_client_conn = client_conn;
-	std::string base_request = json.loads(request, object_hook=byteify);
-	if (type(base_request) != dict){
-		raise ValueError("Not a top-level dictionary")
-	}
-	m_id = base_request.get('id', None);
-	m_method = base_request.get('method');
-	m_params = base_request.get('params', {});
-	if (type(self.method) != str or type(self.params) != dict){
-		raise ValueError("Invalid request type")
-	}
+	std::map<std::string, std::string> base_request;
+	// std::string base_request = json.loads(request, object_hook=byteify);
+	// if type(base_request) != dict:
+	// 	raise ValueError("Not a top-level dictionary")
+	// m_id = base_request.get('id', None);
+	// m_method = base_request.get('method');
+	// m_params = base_request.get('params', {});
+	// if type(self.method) != str or type(self.params) != dict:
+	// 	raise ValueError("Invalid request type")
 	m_response = "";
 	m_is_error = false;
 }
@@ -74,7 +68,7 @@ double WebRequest::get_double(std::string item, double _default)
 
 std::map<std::string, std::string> WebRequest::get_dict(std::string item, std::map<std::string, std::string> _default)
 {
-	return self.get(item, default, types=(dict,));
+	// return self.get(item, default, types=(dict,));
 }
         
 
@@ -93,7 +87,7 @@ void WebRequest::send(std::string data)
 {
 	if (m_response != "")
 	{
-		raise WebRequestError("Multiple calls to send not allowed");
+		// raise WebRequestError("Multiple calls to send not allowed")
 	}
 	m_response = data;
 }
@@ -113,8 +107,8 @@ std::vector<std::string> WebRequest::finish()
 	}
 	if (m_response == "")
 	{
-		No error was set and the user never executed
-		send, default response is {}
+		// No error was set and the user never executed
+		// send, default response is {}
 		m_response = "";
 	}
 	ret.push_back(std::to_string(m_id));
@@ -130,11 +124,11 @@ ServerSocket::ServerSocket(WebHooks *webhooks)
 	m_sock_fd = -1;
 	std::string server_address = Printer::GetInstance()->get_start_args("apiserver");
 	std::string is_fileinput = Printer::GetInstance()->get_start_args("debuginput");
-	if (server_address == "" || is_fileinput != "")
-	{
-		//Do not enable server
-		return;
-	}
+	// if (server_address == "" || is_fileinput != "")
+	// {
+	// 	// Do not enable server
+	// 	return;
+	// }
 	_remove_socket_file(server_address);
 
 	int newSockFd, valread;
@@ -145,9 +139,9 @@ ServerSocket::ServerSocket(WebHooks *webhooks)
 	{
 		printf("socket fail ! \r\n");
 	}
-	int flags = fcntl(m_sock_fd, F_GETFL, NULL);
-	fcntl(m_sock_fd, F_SETFL, flags | O_NONBLOCK);
-	setsockopt(m_sock_fd, SOL_SOCKET, SO_REUSEADDR|SO_REUSEPORT, &opt, sizeof(opt));
+	// int flags = fcntl(m_sock_fd, F_GETFL, NULL);
+	// fcntl(m_sock_fd, F_SETFL, flags | O_NONBLOCK);
+	// setsockopt(m_sock_fd, SOL_SOCKET, SO_REUSEADDR|SO_REUSEPORT, &opt, sizeof(opt));
 	printf("socket seccess ! \r\n");
 	bzero(&address,sizeof(struct sockaddr_in));
     address.sin_family = AF_INET;
@@ -185,8 +179,8 @@ void ServerSocket::_handle_accept(double eventtime)
 		return;
 	}
 	std::cout << "connect seccess! " << std::endl;
-	int flags = fcntl(sockfd, F_GETFL, NULL);
-	fcntl(sockfd, F_SETFL, flags | O_NONBLOCK);
+	// int flags = fcntl(sockfd, F_GETFL, NULL);
+	// fcntl(sockfd, F_SETFL, flags | O_NONBLOCK);
 	char buffer[1024]={0}; 
 	int recbytes = 0;
 	if(-1 == (recbytes = read(sockfd,buffer,1024)))
@@ -227,14 +221,14 @@ void ServerSocket::_handle_disconnect()
 
 void ServerSocket::_remove_socket_file(std::string file_path)
 {
-	try:
-		os.remove(file_path)
-	except OSError:
-		if os.path.exists(file_path):
-			LOG_E(
-				"webhooks: Unable to delete socket file '%s'"
-				% (file_path))
-			raise
+	// try:
+	// 	os.remove(file_path)
+	// except OSError:
+	// 	if os.path.exists(file_path):
+	// 		logging.exception(
+	// 			"webhooks: Unable to delete socket file '%s'"
+	// 			% (file_path))
+	// 		raise
 }
         
 void ServerSocket::pop_client(int client_id)
@@ -262,15 +256,15 @@ ClientConnection::~ClientConnection()
 
 void ClientConnection::set_client_info(std::string client_info, std::string state_msg)
 {
-	if (state_msg is None)
-		state_msg = "Client info %s" % (repr(client_info),)
-	LOG_I("webhooks client %s: %s", self.uid, state_msg)
-	log_id = "webhooks %s" % (self.uid,)
-	if client_info is None:
-		self.printer.set_rollover_info(log_id, None, log=False)
-		return
-	rollover_msg = "webhooks client %s: %s" % (self.uid, repr(client_info))
-	self.printer.set_rollover_info(log_id, rollover_msg, log=False)
+	// if (state_msg is None)
+	// 	state_msg = "Client info %s" % (repr(client_info),)
+	// logging.info("webhooks client %s: %s", self.uid, state_msg)
+	// log_id = "webhooks %s" % (self.uid,)
+	// if client_info is None:
+	// 	self.printer.set_rollover_info(log_id, None, log=False)
+	// 	return
+	// rollover_msg = "webhooks client %s: %s" % (self.uid, repr(client_info))
+	// self.printer.set_rollover_info(log_id, rollover_msg, log=False)
 }
 	
 
@@ -309,7 +303,7 @@ void ClientConnection::process_received(double eventtime)
 	for (auto req : requests)
 	{
 		WebRequest *web_request = new WebRequest(this, req);
-		Printer::GetInstance()->m_reactor->register_web_request_callback(std::bind(&ClientConnection::_process_request, this, std::placeholders::_1), web_request);
+		// Printer::GetInstance()->m_reactor->register_web_request_callback(std::bind(&ClientConnection::_process_request, this, std::placeholders::_1), web_request);
 	}
 		
 }
@@ -317,30 +311,30 @@ void ClientConnection::process_received(double eventtime)
 
 void ClientConnection::_process_request(WebRequest * web_request)
 {
-	try:
-		func = self.webhooks.get_callback(web_request.get_method())
-		func(web_request)
-	except self.printer.command_error as e:
-		web_request.set_error(WebRequestError(str(e)))
-	except Exception as e:
-		msg = ("Internal Error on WebRequest: %s"
-				% (web_request.get_method()))
-		LOG_E(msg)
-		web_request.set_error(WebRequestError(str(e)))
-		self.printer.invoke_shutdown(msg)
-	result = web_request.finish()
-	if result is None:
-		return
-	self.send(result)
+	// try:
+	// 	func = self.webhooks.get_callback(web_request.get_method())
+	// 	func(web_request)
+	// except self.printer.command_error as e:
+	// 	web_request.set_error(WebRequestError(str(e)))
+	// except Exception as e:
+	// 	msg = ("Internal Error on WebRequest: %s"
+	// 			% (web_request.get_method()))
+	// 	logging.exception(msg)
+	// 	web_request.set_error(WebRequestError(str(e)))
+	// 	self.printer.invoke_shutdown(msg)
+	// result = web_request.finish()
+	// if result is None:
+	// 	return
+	// self.send(result)
 }
 	
 
 void ClientConnection::_send(std::string data)
 {
-	self.send_buffer += json.dumps(data) + "\x03"
-	if not self.is_sending_data:
-		self.is_sending_data = True
-		self.reactor.register_callback(self._do_send)
+	// self.send_buffer += json.dumps(data) + "\x03"
+	// if not self.is_sending_data:
+	// 	self.is_sending_data = True
+	// 	self.reactor.register_callback(self._do_send)
 }
 	
 
@@ -367,7 +361,7 @@ void ClientConnection::_do_send(double eventtime)
 			m_send_buffer = m_send_buffer.substr(ret_send);
 		else
 		{
-			LOG_I("webhooks: Error sending server data,  closing socket")
+			// logging.info("webhooks: Error sending server data,  closing socket")
 			_close();
 			break;
 		}
@@ -380,7 +374,7 @@ WebHooks::WebHooks()
 {
 	std::map<std::string, std::function<void(WebRequest*)>> m_endpoints;
 	m_endpoints["list_endpoints"] = std::bind(&WebHooks::_handle_list_endpoints, this, std::placeholders::_1);
-	self._remote_methods = {}
+	// self._remote_methods = {}
 	register_endpoint("info", std::bind(&WebHooks::_handle_info_request, this, std::placeholders::_1));
 	register_endpoint("emergency_stop", std::bind(&WebHooks::_handle_estop_request, this, std::placeholders::_1));
 	register_endpoint("register_remote_method", std::bind(&WebHooks::_handle_rpc_registration, this, std::placeholders::_1));
@@ -404,31 +398,31 @@ void WebHooks::register_endpoint(std::string path, std::function<void(WebRequest
 {
 	if (m_endpoints.find(path) != m_endpoints.end())
 	{
-		raise WebRequestError("Path already registered to an endpoint")
+		// raise WebRequestError("Path already registered to an endpoint")
 	}
 	m_endpoints[path] = callback;
 }
 
 void WebHooks::_handle_list_endpoints(WebRequest* web_request)
 {
-	web_request->_send({'endpoints': list(self._endpoints.keys())});  //---??---
+	// web_request->_send({'endpoints': list(self._endpoints.keys())});  //---??---
 }       
 
 void WebHooks::_handle_info_request(WebRequest* web_request)
 {
-	client_info = web_request.get_dict('client_info', None)
-	if client_info is not None:
-		web_request.get_client_connection().set_client_info(client_info)
-	state_message, state = self.printer.get_state_message()
-	src_path = os.path.dirname(__file__)
-	klipper_path = os.path.normpath(os.path.join(src_path, ".."))
-	response = {'state': state, 'state_message': state_message,
-				'hostname': socket.gethostname(),
-				'klipper_path': klipper_path, 'python_path': sys.executable}
-	start_args = self.printer.get_start_args()
-	for sa in ['log_file', 'config_file', 'software_version', 'cpu_info']:
-		response[sa] = start_args.get(sa)
-	web_request.send(response)
+	// client_info = web_request.get_dict('client_info', None)
+	// if client_info is not None:
+	// 	web_request.get_client_connection().set_client_info(client_info)
+	// state_message, state = self.printer.get_state_message()
+	// src_path = os.path.dirname(__file__)
+	// klipper_path = os.path.normpath(os.path.join(src_path, ".."))
+	// response = {'state': state, 'state_message': state_message,
+	// 			'hostname': socket.gethostname(),
+	// 			'klipper_path': klipper_path, 'python_path': sys.executable}
+	// start_args = self.printer.get_start_args()
+	// for sa in ['log_file', 'config_file', 'software_version', 'cpu_info']:
+	// 	response[sa] = start_args.get(sa)
+	// web_request.send(response)
 }
         
 
@@ -439,11 +433,11 @@ void WebHooks::_handle_estop_request(WebRequest* web_request)
 
 void WebHooks::_handle_rpc_registration(WebRequest* web_request)
 {
-	template = web_request.get_dict('response_template')
-	method = web_request.get_str('remote_method')
-	new_conn = web_request.get_client_connection();
-	LOG_I("webhooks: registering remote method '%s' for connection id: %d" % (method, id(new_conn)))
-	self._remote_methods.setdefault(method, {})[new_conn] = template
+	// template = web_request.get_dict('response_template')
+	// method = web_request.get_str('remote_method')
+	// new_conn = web_request.get_client_connection();
+	// logging.info("webhooks: registering remote method '%s' for connection id: %d" % (method, id(new_conn)))
+	// self._remote_methods.setdefault(method, {})[new_conn] = template
 }
         
 ServerSocket * WebHooks::get_connection()
@@ -456,38 +450,38 @@ std::function<void(WebRequest*)> WebHooks::get_callback(std::string path)
 	std::function<void(WebRequest*)> cb = m_endpoints[path];
 	if (cb == nullptr)
 	{
-		msg = "webhooks: No registered callback for path '%s'" % (path)
-		LOG_I(msg)
-		raise WebRequestError(msg)
+		// msg = "webhooks: No registered callback for path '%s'" % (path)
+		// logging.info(msg)
+		// raise WebRequestError(msg)
 	}
 	return cb;
 }
         
 void WebHooks::get_status(double eventtime)
 {
-	state_message, state = self.printer.get_state_message()
-    return {'state': state, 'state_message': state_message}
+	// state_message, state = self.printer.get_state_message()
+    // return {'state': state, 'state_message': state_message}
 }
         
 
 void WebHooks::call_remote_method(std::string method, void **kwargs)
 {
-	if method not in self._remote_methods:
-		raise self.printer.command_error(
-			"Remote method '%s' not registered" % (method))
-	conn_map = self._remote_methods[method]
-	valid_conns = {}
-	for conn, template in conn_map.items():
-		if not conn.is_closed():
-			valid_conns[conn] = template
-			out = {'params': kwargs}
-			out.update(template)
-			conn.send(out)
-	if not valid_conns:
-		del self._remote_methods[method]
-		raise self.printer.command_error(
-			"No active connections for method '%s'" % (method))
-	self._remote_methods[method] = valid_conns
+	// if method not in self._remote_methods:
+	// 	raise self.printer.command_error(
+	// 		"Remote method '%s' not registered" % (method))
+	// conn_map = self._remote_methods[method]
+	// valid_conns = {}
+	// for conn, template in conn_map.items():
+	// 	if not conn.is_closed():
+	// 		valid_conns[conn] = template
+	// 		out = {'params': kwargs}
+	// 		out.update(template)
+	// 		conn.send(out)
+	// if not valid_conns:
+	// 	del self._remote_methods[method]
+	// 	raise self.printer.command_error(
+	// 		"No active connections for method '%s'" % (method))
+	// self._remote_methods[method] = valid_conns
 }
         
 
@@ -511,40 +505,40 @@ GCodeHelper::~GCodeHelper()
         
 void GCodeHelper::_handle_help(WebRequest* web_request)
 {
-	web_request->_send(Printer::GetInstance()->m_gcode->get_command_help());
+	// web_request->_send(Printer::GetInstance()->m_gcode->get_command_help());
 }
         
 void GCodeHelper::_handle_script(WebRequest* web_request)
 {
-	Printer::GetInstance()->m_gcode->run_script(web_request->get_str("script"));
+	// Printer::GetInstance()->m_gcode->run_script(web_request->get_str("script"));
 }
         
 void GCodeHelper::_handle_restart(WebRequest* web_request)
 {
-	Printer::GetInstance()->m_gcode->run_script("restart");
+	// Printer::GetInstance()->m_gcode->run_script("restart");
 }
         
 void GCodeHelper::_handle_firmware_restart(WebRequest* web_request)
 {
-	Printer::GetInstance()->m_gcode->run_script("firmware_restart");
+	// Printer::GetInstance()->m_gcode->run_script("firmware_restart");
 }
         
 void GCodeHelper::_output_callback(std::string msg)
 {
-	for cconn, template in list(self.clients.items()):
-		if cconn.is_closed():
-			del self.clients[cconn]
-			continue
-		tmp = dict(template)
-		tmp['params'] = {'response': msg}
-		cconn.send(tmp)
+	// for cconn, template in list(self.clients.items()):
+	// 	if cconn.is_closed():
+	// 		del self.clients[cconn]
+	// 		continue
+	// 	tmp = dict(template)
+	// 	tmp['params'] = {'response': msg}
+	// 	cconn.send(tmp)
 }
         
 void GCodeHelper::_handle_subscribe_output(WebRequest* web_request)
 {
 	ClientConnection * cconn = web_request->get_client_connection();
-	template = web_request.get_dict('response_template', {})
-	m_clients[cconn] = template
+	// template = web_request.get_dict('response_template', {})
+	// m_clients[cconn] = template
 	if (!m_is_output_registered)
 	{
 		Printer::GetInstance()->m_gcode->register_output_handler(std::bind(&GCodeHelper::_output_callback, this, std::placeholders::_1));
@@ -572,88 +566,88 @@ QueryStatusHelper::~QueryStatusHelper()
 
 void QueryStatusHelper::_handle_list(WebRequest* web_request)
 {
-	objects = [n for n, o in self.printer.lookup_objects()
-				if hasattr(o, 'get_status')]
-	web_request.send({'objects': objects})
+	// objects = [n for n, o in self.printer.lookup_objects()
+	// 			if hasattr(o, 'get_status')]
+	// web_request.send({'objects': objects})
 }
         
 double QueryStatusHelper::_do_query(double eventtime)
 {
-	last_query = self.last_query
-	query = self.last_query = {}
-	msglist = self.pending_queries
-	self.pending_queries = []
-	msglist.extend(self.clients.values())
-	# Generate get_status() info for each client
-	for cconn, subscription, send_func, template in msglist:
-		is_query = cconn is None
-		if not is_query and cconn.is_closed():
-			del self.clients[cconn]
-			continue
-		# Query each requested printer object
-		cquery = {}
-		for obj_name, req_items in subscription.items():
-			res = query.get(obj_name, None)
-			if res is None:
-				po = self.printer.lookup_object(obj_name, None)
-				if po is None or not hasattr(po, 'get_status'):
-					res = query[obj_name] = {}
-				else:
-					res = query[obj_name] = po.get_status(eventtime)
-			if req_items is None:
-				req_items = list(res.keys())
-				if req_items:
-					subscription[obj_name] = req_items
-			lres = last_query.get(obj_name, {})
-			cres = {}
-			for ri in req_items:
-				rd = res.get(ri, None)
-				if is_query or rd != lres.get(ri):
-					cres[ri] = rd
-			if cres or is_query:
-				cquery[obj_name] = cres
-		# Send data
-		if cquery or is_query:
-			tmp = dict(template)
-			tmp['params'] = {'eventtime': eventtime, 'status': cquery}
-			send_func(tmp)
-	if not query:
-		# Unregister timer if there are no longer any subscriptions
-		reactor = self.printer.get_reactor()
-		reactor.unregister_timer(self.query_timer)
-		self.query_timer = None
-		return reactor.NEVER
-	return eventtime + SUBSCRIPTION_REFRESH_TIME
+	// last_query = self.last_query
+	// query = self.last_query = {}
+	// msglist = self.pending_queries
+	// self.pending_queries = []
+	// msglist.extend(self.clients.values())
+	// # Generate get_status() info for each client
+	// for cconn, subscription, send_func, template in msglist:
+	// 	is_query = cconn is None
+	// 	if not is_query and cconn.is_closed():
+	// 		del self.clients[cconn]
+	// 		continue
+	// 	# Query each requested printer object
+	// 	cquery = {}
+	// 	for obj_name, req_items in subscription.items():
+	// 		res = query.get(obj_name, None)
+	// 		if res is None:
+	// 			po = self.printer.lookup_object(obj_name, None)
+	// 			if po is None or not hasattr(po, 'get_status'):
+	// 				res = query[obj_name] = {}
+	// 			else:
+	// 				res = query[obj_name] = po.get_status(eventtime)
+	// 		if req_items is None:
+	// 			req_items = list(res.keys())
+	// 			if req_items:
+	// 				subscription[obj_name] = req_items
+	// 		lres = last_query.get(obj_name, {})
+	// 		cres = {}
+	// 		for ri in req_items:
+	// 			rd = res.get(ri, None)
+	// 			if is_query or rd != lres.get(ri):
+	// 				cres[ri] = rd
+	// 		if cres or is_query:
+	// 			cquery[obj_name] = cres
+	// 	# Send data
+	// 	if cquery or is_query:
+	// 		tmp = dict(template)
+	// 		tmp['params'] = {'eventtime': eventtime, 'status': cquery}
+	// 		send_func(tmp)
+	// if not query:
+	// 	# Unregister timer if there are no longer any subscriptions
+	// 	reactor = self.printer.get_reactor()
+	// 	reactor.unregister_timer(self.query_timer)
+	// 	self.query_timer = None
+	// 	return reactor.NEVER
+	// return eventtime + SUBSCRIPTION_REFRESH_TIME
 }
         
 void QueryStatusHelper::_handle_query(WebRequest* web_request) //is_subscribe=False
 {
-	objects = web_request.get_dict('objects')
-	# Validate subscription format
-	for k, v in objects.items():
-		if type(k) != str or (v is not None and type(v) != list):
-			raise web_request.error("Invalid argument")
-		if v is not None:
-			for ri in v:
-				if type(ri) != str:
-					raise web_request.error("Invalid argument")
-	# Add to pending queries
-	cconn = web_request.get_client_connection()
-	template = web_request.get_dict('response_template', {})
-	if is_subscribe and cconn in self.clients:
-		del self.clients[cconn]
-	reactor = self.printer.get_reactor()
-	complete = reactor.completion()
-	self.pending_queries.append((None, objects, complete.complete, {}))
-	# Start timer if needed
-	if self.query_timer is None:
-		qt = reactor.register_timer(self._do_query, reactor.NOW)
-		self.query_timer = qt
-	# Wait for data to be queried
-	msg = complete.wait()
-	web_request.send(msg['params'])
-	if is_subscribe:
-		self.clients[cconn] = (cconn, objects, cconn.send, template)
+	// objects = web_request.get_dict('objects')
+	// # Validate subscription format
+	// for k, v in objects.items():
+	// 	if type(k) != str or (v is not None and type(v) != list):
+	// 		raise web_request.error("Invalid argument")
+	// 	if v is not None:
+	// 		for ri in v:
+	// 			if type(ri) != str:
+	// 				raise web_request.error("Invalid argument")
+	// # Add to pending queries
+	// cconn = web_request.get_client_connection()
+	// template = web_request.get_dict('response_template', {})
+	// if is_subscribe and cconn in self.clients:
+	// 	del self.clients[cconn]
+	// reactor = self.printer.get_reactor()
+	// complete = reactor.completion()
+	// self.pending_queries.append((None, objects, complete.complete, {}))
+	// # Start timer if needed
+	// if self.query_timer is None:
+	// 	qt = reactor.register_timer(self._do_query, reactor.NOW)
+	// 	self.query_timer = qt
+	// # Wait for data to be queried
+	// msg = complete.wait()
+	// web_request.send(msg['params'])
+	// if is_subscribe:
+	// 	self.clients[cconn] = (cconn, objects, cconn.send, template)
 }
         
 void QueryStatusHelper::_handle_subscribe(WebRequest* web_request)
