@@ -997,10 +997,10 @@ void *process_task_printer(void *arg)
             }
 
             // serial_debug
-            // if (Printer::GetInstance()->m_serial_sq_require)
-            // {
-            //     Printer::GetInstance()->m_reactor->update_timer(Printer::GetInstance()->m_command_controller->serial_command_timer, Printer::GetInstance()->m_reactor->m_NOW);
-            // }
+            if (Printer::GetInstance()->m_serial_sq_require)
+            {
+                Printer::GetInstance()->m_reactor->update_timer(Printer::GetInstance()->m_command_controller->serial_command_timer, Printer::GetInstance()->m_reactor->m_NOW);
+            }
 
             // highest_priority_cmd
             if (Printer::GetInstance()->m_highest_priority_sq_require)

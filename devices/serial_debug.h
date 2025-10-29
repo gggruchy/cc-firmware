@@ -19,10 +19,10 @@
 #define DEBUG_SERIAL "/dev/ttyS0"
 #define MAX_SERIAL_MSG_LENGTH 1024
 
-// int serial_log(std::string logs);
-// int serial_error(std::string error_msg);
-// int serial_info(std::string info);
-// int serial_debug(std::string debug_msg);
-// void* debug_read_serial(void *arg);
-// void debug_serial_init();
+ int serial_log(std::string logs);
+ int serial_error(std::string error_msg);
+ int serial_info(std::string info);
+ int serial_debug(std::string debug_msg);
+ void* debug_read_serial(void *arg);
+ void debug_serial_init();
 #endif

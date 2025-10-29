@@ -183,7 +183,7 @@ static void save_pa_val(void *arg = NULL) //-保存流量校准数据--
     manual_control_sq.push(cmd);
     Printer::GetInstance()->manual_control_signal();
 
-    // Printer::GetInstance()->m_printer_extruder->set_pressure_advance(*val, 0);
+    Printer::GetInstance()->m_printer_extruder->set_pressure_advance(*val, 0);
     Printer::GetInstance()->m_pconfig->WriteIni(CONFIG_PATH);
 }
 

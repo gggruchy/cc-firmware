@@ -63,13 +63,13 @@ std::vector<int> MCU_analog_mux::get_instance_id(std::string select_pins_desc)
         pinParams *select_pin_params = ppins->lookup_pin(parts[i], true);
         if (select_pin_params->chip != m_mcu)
         {
-            GAM_ERR_printf("TMC mux pins must be on the same mcu");
+            LOG_E("TMC mux pins must be on the same mcu");
         }
 
         std::string pin = select_pin_params->pin;
         if ((m_pins.size() <= i) || (pin != m_pins[i]))
         {
-            GAM_ERR_printf("All TMC mux instances must use identical pins");
+            LOG_E("All TMC mux instances must use identical pins");
         }
         instance_id.push_back(!select_pin_params->invert);
     }
@@ -170,7 +170,7 @@ std::vector<int> MCU_TMC_uart_bitbang::register_instance(pinParams *rx_pin_param
 {
     if ((rx_pin_params->pin != rx_pin) || (tx_pin_params->pin != tx_pin))
     {
-        GAM_ERR_printf("Shared TMC uarts must use the same pins");
+        LOG_E("Shared TMC uarts must use the same pins");
     }
     std::vector<int> instance_id = std::vector<int>();
     if (analog_mux != nullptr)
@@ -180,7 +180,7 @@ std::vector<int> MCU_TMC_uart_bitbang::register_instance(pinParams *rx_pin_param
     instance_id.push_back((int)addr);
     if (instances.find(instance_id) != instances.end())
     {
-        GAM_ERR_printf("Shared TMC uarts need unique address or select_pins polarity");
+        LOG_E("Shared TMC uarts need unique address or select_pins polarity");
     }
     instances[instance_id] = true;
     instance_id.pop_back();
@@ -290,7 +290,7 @@ uint32_t MCU_TMC_uart_bitbang::_decode_read(uint8_t reg, uint8_t *data, uint8_t 
         // printf("_decode_read data=%x   %x %x \n",i,data1[i],data[i]);
         if (data1[i] != data[i])
         {
-            GAM_ERR_printf("_decode_read data=%x   2:%x 3:%x 4:%x 5:%x 6:%x 7:%x 8:%x 9:%x\n", val, data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9]);
+            LOG_E("_decode_read data=%x   2:%x 3:%x 4:%x 5:%x 6:%x 7:%x 8:%x 9:%x\n", val, data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9]);
             return UINT32_MAX;
         }
     }
@@ -356,7 +356,7 @@ std::vector<int> lookup_tmc_uart_bitbang(MCU_TMC_uart_bitbang **m_mcu_uart, std:
         tx_pin_params = ppins->lookup_pin(tx_pin_desc, false, false, "tmc_uart_tx");
     if (rx_pin_params->chip != tx_pin_params->chip)
     {
-        GAM_ERR_printf("TMC uart rx and tx pins must be on the same mcu\n");
+        LOG_E("TMC uart rx and tx pins must be on the same mcu\n");
     }
     std::string select_pins_desc = Printer::GetInstance()->m_pconfig->GetString(section_name, "select_pins", "");
     *m_mcu_uart = (MCU_TMC_uart_bitbang *)rx_pin_params->pclass;

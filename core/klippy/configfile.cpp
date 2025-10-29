@@ -169,7 +169,7 @@ bool ConfigParser::ReadIni()
 		fstream config_name(_ini, ios::in | ios::out);
 		if (!config_name.is_open())
 		{
-			GAM_ERR_printf("Cannot open this file:%s \n", _ini.c_str());
+			LOG_E("Cannot open this file:%s \n", _ini.c_str());
 			para_state = PARA_STATE_OPEN_ERR;
 			return false;
 		}
@@ -211,7 +211,7 @@ bool ConfigParser::ReadIni()
 					continue;
 				if (left_pos == 0 || left_pos > str_len)
 				{
-					GAM_ERR_printf("Ini file format error on %d line str_line:%s str_len:%d \n", row, str_line.c_str(), str_len);
+					LOG_E("Ini file format error on %d line str_line:%s str_len:%d \n", row, str_line.c_str(), str_len);
 					para_state = PARA_STATE_PARA_ERR;
 					return false;
 				}
@@ -233,7 +233,7 @@ bool ConfigParser::ReadIni()
 	}
 	catch (...)
 	{
-		GAM_ERR_printf("-ERR----ReadIni  file:%s \n", _ini.c_str());
+		LOG_E("-ERR----ReadIni  file:%s \n", _ini.c_str());
 		para_state = PARA_STATE_READ_ERR;
 		return false;
 	}
@@ -292,7 +292,7 @@ void ConfigParser::AddOption(string section, string option, string value, string
 	Option *elem = nullptr;
 	if (_section_list_head == nullptr)
 	{
-		GAM_ERR_printf("No any sections. \n");
+		LOG_E("No any sections. \n");
 		return;
 	}
 	Section *node = _section_list_head;
@@ -375,7 +375,7 @@ Section *ConfigParser::GetSection(const string &root)
 {
 	if (_section_list_head == nullptr)
 	{
-		GAM_ERR_printf("%s file is empty.\n", _ini.c_str());
+		LOG_E("%s file is empty.\n", _ini.c_str());
 		return nullptr;
 	}
 	bool flag = false;
@@ -396,7 +396,7 @@ string ConfigParser::GetString(const string &root, const string &key, const stri
 {
 	if (_section_list_head == nullptr)
 	{
-		GAM_ERR_printf("%s file is empty.\n", _ini.c_str());
+		LOG_E("%s file is empty.\n", _ini.c_str());
 		return def;
 	}
 
@@ -709,7 +709,7 @@ bool ConfigParser::WriteIni(string path)
 	fstream fp(path, ios::trunc | ios::out);
 	if (!fp.is_open())
 	{
-		GAM_ERR_printf("Cannot open this file: %s \n", path.c_str());
+		LOG_E("Cannot open this file: %s \n", path.c_str());
 		return false;
 	}
 

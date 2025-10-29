@@ -213,7 +213,7 @@ bool CoreXYKinematics::check_move(Move &move)
         {
             return false;
         }
-        // GAM_ERR_printf("-ERR-%f---%f--\n",xpos, ypos);
+        LOG_E("-ERR-%f---%f--\n",xpos, ypos);
     }
     if (fabs(move.m_axes_d[2]) <= 1e-15) //--IS_DOUBLE_ZERO----------
     {

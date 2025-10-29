@@ -1,6 +1,10 @@
 #include "corexz.h"
 #include "Define.h"
 #include "klippy.h"
+#define LOG_TAG "corexz"
+#undef LOG_LEVEL
+#define LOG_LEVEL LOG_DEBUG
+#include "log.h"
 
 CoreXZKinematics::CoreXZKinematics(std::string section_name) : Kinematics()
 {
@@ -162,7 +166,7 @@ bool CoreXZKinematics::check_move(Move& move)
         {
             return false;
         }
-        // GAM_ERR_printf("-ERR-%f---%f--\n",xpos, ypos);
+        LOG_E("-ERR-%f---%f--\n",xpos, ypos);
     }
     if (move.m_axes_d[2] <= 1e-15)       //--IS_DOUBLE_ZERO----------
     {

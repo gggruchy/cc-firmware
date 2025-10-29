@@ -62,7 +62,7 @@ void errorf(const char *fmt, ...)
     va_end(args);
     buf[sizeof(buf)-1] = '\0';
     // python_logging_callback(buf);
-    GAM_ERR_printf("ERR-%s\n", buf);
+    LOG_E("ERR-%s\n", buf);
 }
 
 // Report 'errno' in a message written to stderr
@@ -71,7 +71,7 @@ report_errno(char *where, int rc)
 {
     int e = errno;
     // errorf("Got error %d in %s: (%d)%s", rc, where, e, strerror(e));
-    GAM_ERR_printf("Got error %d in %s: (%d)%s \n", rc, where, e, strerror(e));
+    LOG_E("Got error %d in %s: (%d)%s \n", rc, where, e, strerror(e));
 }
 
 // Return a hex character for a given number

@@ -188,7 +188,7 @@ void GCodeMove::cmd_G1(GCodeCommand &gcmd)
         m_speed = gcode_speed * m_speed_factor;
         if(m_speed <= 0.001)            //避免速度为0导致后面死机
         {
-            // GAM_ERR_printf("G1 F%d m_speed_factor:%f\n",(int)gcode_speed,m_speed_factor);
+            LOG_E("G1 F%d m_speed_factor:%f\n",(int)gcode_speed,m_speed_factor);
             m_speed = 40;
         }
     }
@@ -253,7 +253,7 @@ void GCodeMove::cmd_MANUAL_MOVE(GCodeCommand &gcmd)
         m_speed = gcode_speed * m_speed_factor;
         if(m_speed <= 0.001)            //避免速度为0导致后面死机
         {
-            // GAM_ERR_printf("G1 F%d m_speed_factor:%f\n",(int)gcode_speed,m_speed_factor);
+            LOG_E("G1 F%d m_speed_factor:%f\n",(int)gcode_speed,m_speed_factor);
             m_speed = 40;
         }
     }

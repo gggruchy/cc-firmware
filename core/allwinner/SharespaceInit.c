@@ -235,7 +235,7 @@ int sharespace_mmap()
     int fd = sharespace_open();
     if (fd < 0)
     {
-        GAM_ERR_printf("sharespace_open errer  \n");
+        LOG_E("sharespace_open errer  \n");
         return -1;
     }
     ret = choose_sharespace(fd, &sharespace_addr, CHOOSE_ARM_WRITE_SPACE);
@@ -244,7 +244,7 @@ int sharespace_mmap()
     pu8ArmBuf = (char *)mmap(NULL, 4096, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if (pu8ArmBuf < 0)
     {
-        GAM_ERR_printf("dev mmap to fail\n");
+        LOG_E("dev mmap to fail\n");
         ret = -1;
         return -1;
     }
@@ -254,7 +254,7 @@ int sharespace_mmap()
     pu8DspBuf = (char *)mmap(NULL, 4096, PROT_READ, MAP_SHARED, fd, 0);
     if (pu8DspBuf < 0)
     {
-        GAM_ERR_printf("dev mmap to fail\n");
+        LOG_E("dev mmap to fail\n");
         ret = -1;
         return -1;
     }
@@ -291,7 +291,7 @@ int set_dsp_ops_addr(uint32_t arm_write_addr, uint32_t dsp_write_addr)
     int fd = sharespace_mmap();
     if (fd < 0)
     {
-        GAM_ERR_printf("sharespace_mmap errer  \n");
+        LOG_E("sharespace_mmap errer  \n");
         return -1;
     }
     set_dsp_ops_addr_no_mmap(arm_write_addr, dsp_write_addr);
@@ -386,7 +386,7 @@ uint16_t DSP_mem_write(uint8_t *cmd, int len) //
             }
             else
             {
-                GAM_ERR_printf("len = %d free_size = %d dsp_head.read_addr = %d arm_head.write_addr = %d   \n", len, free_size, dsp_head.read_addr, arm_head.write_addr);
+                LOG_E("len = %d free_size = %d dsp_head.read_addr = %d arm_head.write_addr = %d   \n", len, free_size, dsp_head.read_addr, arm_head.write_addr);
             }
         }
         else if (dsp_head.read_addr > arm_head.write_addr)
@@ -398,7 +398,7 @@ uint16_t DSP_mem_write(uint8_t *cmd, int len) //
             }
             else
             {
-                GAM_ERR_printf("len = %d free_size = %d dsp_head.read_addr = %d arm_head.write_addr = %d   \n", len, free_size, dsp_head.read_addr, arm_head.write_addr);
+                LOG_E("len = %d free_size = %d dsp_head.read_addr = %d arm_head.write_addr = %d   \n", len, free_size, dsp_head.read_addr, arm_head.write_addr);
             }
         }
     }

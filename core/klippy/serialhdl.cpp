@@ -138,7 +138,7 @@ int Serialhdl::connect_uart(std::string serialport, uint32_t baud, uint32_t mcu_
     double start_time = get_monotonic();
     if (get_monotonic() > start_time + 90)
     {
-        GAM_ERR_printf("unable to connect %f %f \n", (float)start_time, (float)get_monotonic());
+        LOG_E("unable to connect %f %f \n", (float)start_time, (float)get_monotonic());
     }
 
     // MCU_TYPE == 1 用于DSP

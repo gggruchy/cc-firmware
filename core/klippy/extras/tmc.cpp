@@ -4,6 +4,10 @@
 #include "my_string.h"
 #include "tmc_uart.h"
 #include "debug.h"
+#define LOG_TAG "tmc"
+#undef LOG_LEVEL
+#define LOG_LEVEL LOG_INFO
+#include "log.h"
 
 // Return the position of the first bit set in a mask
 int ffs(int mask)
@@ -71,7 +75,7 @@ int FieldHelper::get_field(std::string field_name, int reg_value, std::string re
     }
     if (reg_name == "")
     {
-        GAM_ERR_printf("---get_field-reg_name:field_name-%s:%s---------\r\n",reg_name.c_str(),field_name.c_str());
+        LOG_E("---get_field-reg_name:field_name-%s:%s---------\r\n",reg_name.c_str(),field_name.c_str());
     }
     if (reg_value == 0)
     {
@@ -118,7 +122,7 @@ int FieldHelper::set_field(std::string field_name, int field_value, int reg_valu
     m_registers[reg_name] = new_value;
     if (reg_name == "")
     {
-        GAM_ERR_printf("-set_field---reg_name:field_name-----%s:%s----%x-%x-----\r\n",reg_name.c_str(),field_name.c_str(),new_value,field_value);
+        LOG_E("-set_field---reg_name:field_name-----%s:%s----%x-%x-----\r\n",reg_name.c_str(),field_name.c_str(),new_value,field_value);
     }
     return new_value;
 }
@@ -357,7 +361,7 @@ void TMCCommandHelper::cmd_SET_TMC_FIELD(GCodeCommand &gcmd) // SET_TMC_FIELD FI
     std::string reg_name = m_fields->lookup_register(field_name);
     if (reg_name == "")
     {
-        GAM_ERR_printf("Unknown field name '%s'", field_name);
+        LOG_E("Unknown field name '%s'", field_name);
     }
     int value = gcmd.get_int("VALUE", 0);
     int reg_val = m_fields->set_field(field_name, value);
@@ -673,7 +677,7 @@ TMCMicrostepHelper::TMCMicrostepHelper(std::string section_name, MCU_TMC *mcu_tm
     }
     if(!Printer::GetInstance()->m_pconfig->IsExistSection(stepper_name))
     {
-        GAM_ERR_printf( "Could not find config section '[%s]' required by tmc driver", stepper_name.c_str() );
+        LOG_E( "Could not find config section '[%s]' required by tmc driver", stepper_name.c_str() );
     }
     // std::string stepper_name
     if( (Printer::GetInstance()->m_pconfig->GetInt(stepper_name, "microsteps", -1) == -1 ) 

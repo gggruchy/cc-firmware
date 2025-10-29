@@ -732,7 +732,7 @@ void GCodeDispatch::cmd_HELP(GCodeCommand &gcmd)
             cmdhelp.push_back(it.first + ": " + it_help->second);
         }
     }
-    // gcmd.m_respond_info(cmdhelp, false);
+    gcmd.m_respond_info(cmdhelp, false);
 }
 
 GCodeIO::GCodeIO()
