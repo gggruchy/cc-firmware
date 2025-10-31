@@ -113,7 +113,7 @@ void SkewCorrection::cmd_CALC_MEASURED_SKEW(GCodeCommand& gcmd)
     double bd = gcmd.get_double("BD", DBL_MIN, DBL_MIN, DBL_MAX, 0.);
     double ad = gcmd.get_double("AD", DBL_MIN, DBL_MIN, DBL_MAX, 0.);
     double factor = calc_skew_factor(ac, bd, ad);
-    gcmd.m_respond_info("Calculated Skew: " + std::to_string(factor) + " degrees", true); //---??---SkewCorrection
+    //gcmd.m_respond_info("Calculated Skew: " + std::to_string(factor) + " degrees", true); //---??---SkewCorrection
 }
         
 void SkewCorrection::cmd_SET_SKEW(GCodeCommand& gcmd)
