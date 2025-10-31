@@ -13,6 +13,10 @@
 #include "compiler.h" // __visible
 #include "pyhelper.h" // get_monotonic
 #include "debug.h" 
+#define LOG_TAG "pyhelper"
+#undef LOG_LEVEL
+#define LOG_LEVEL LOG_ERROR
+#include "log.h"
 // Return the monotonic system time as a double  以双精度形式返回单调系统时间
 double __visible
 get_monotonic(void)
