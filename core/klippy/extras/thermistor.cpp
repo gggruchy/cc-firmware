@@ -68,13 +68,14 @@ double Thermistor::calc_temp(std::string m_name, double adc)
     if (fabs(m_inline_resistor) > 1e-15) {
         // 对于并联电阻，使用并联公式: 1/R_eq = 1/R1 + 1/R2
         // 因此 R_thermistor = (R_total * R_inline)/(R_inline - R_total)
-        if (m_inline_resistor - r > 1e-15)
+        if (m_inline_resistor - r > 1e-15) {
             r_thermistor = (r * m_inline_resistor) / (m_inline_resistor - r);
             printf("Thermistor::calc_temp adc:%f，r:%f，pullup:%f，inline_resistor:%f，r_thermistor:%f\n", adc, r, m_pullup, m_inline_resistor, r_thermistor);
-        else
+		}
+        else {
             r_thermistor = m_inline_resistor;
             printf("Thermistor::calc_temp adc:%f，r:%f，pullup:%f，inline_resistor:%f，r_thermistor:%f\n", adc, r, m_pullup, m_inline_resistor, r_thermistor);
-        
+		}
         if (r > m_inline_resistor - INLINE_RESISTOR_OFFSET)
         {
             if (m_name == "extruder")
