@@ -19,6 +19,11 @@
 #define SHARE_SPACE_HEAD_OFFSET 0
 #endif
 
+#define LOG_TAG "sharespace"
+#undef LOG_LEVEL
+#define LOG_LEVEL LOG_ERROR
+#include "log.h"
+
 // static
 uint8_t *pu8ArmBuf = NULL;
 uint8_t *pu8DspBuf = NULL;
