@@ -255,13 +255,13 @@ void ExcludeObject::cmd_EXCLUDE_OBJECT_END(GCodeCommand& gcmd)
 {
     if (m_current_object == "None" && m_next_move_transform != nullptr)
     {
-        // gcmd.m_respond_info("EXCLUDE_OBJECT_END called, but no object is currently active"); //---??---ExcludeObject
+        gcmd.m_respond_info("EXCLUDE_OBJECT_END called, but no object is currently active"); //---??---ExcludeObject
         return;
     } 
     std::string name = gcmd.get_string("NAME", "");
     if (name != "None" && name != m_current_object)
     {
-        // gcmd.m_respond_info("EXCLUDE_OBJECT_END NAME=%s does not match the current object NAME=" + m_current_object);  //---??---ExcludeObject
+        gcmd.m_respond_info("EXCLUDE_OBJECT_END NAME=%s does not match the current object NAME=" + m_current_object);  //---??---ExcludeObject
     }
     m_current_object = "";
 }
@@ -298,7 +298,7 @@ void ExcludeObject::cmd_EXCLUDE_OBJECT(GCodeCommand& gcmd)
     {
         if (m_current_object == "")
         {
-            // gcmd.m_respond_error("There is no current object to cancel"); //---??---ExcludeObject
+            gcmd.m_respond_error("There is no current object to cancel"); //---??---ExcludeObject
         }
         else
         {

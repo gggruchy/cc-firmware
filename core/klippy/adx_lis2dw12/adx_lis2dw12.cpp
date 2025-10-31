@@ -969,7 +969,7 @@ void ADXL345::end_query(std::string name, GCodeCommand &gcmd)
     res->write_to_file(filename.str());
     if (res)
         delete res;
-    // gcmd.m_respond_info("Writing raw accelerometer data to %s file" + filename.str());  //---??---ADXL345
+    gcmd.m_respond_info("Writing raw accelerometer data to %s file" + filename.str());  //---??---ADXL345
 }
 
 void ADXL345::cmd_ACCELEROMETER_MEASURE(GCodeCommand &gcmd)
@@ -989,7 +989,7 @@ void ADXL345::cmd_ACCELEROMETER_MEASURE(GCodeCommand &gcmd)
         // if not name.replace("-", "").replace("_", "").isalnum():
         //     raise gcmd.error("Invalid adxl345 NAME parameter")  //---??---ADXL345
         end_query(name, gcmd);
-        // gcmd.m_respond_info("adxl345 measurements stopped"); //---??---ADXL345
+        gcmd.m_respond_info("adxl345 measurements stopped"); //---??---ADXL345
     }
     else
     {
@@ -1071,7 +1071,7 @@ void ADXL345::cmd_ADXL345_DEBUG_READ(GCodeCommand &gcmd)
     }
     uint8_t reg = gcmd.get_int("REG", INT32_MIN, 29, 57);
     int val = read_reg(reg);
-    // gcmd.m_respond_info("ADXL345 REG = 0x%x" + std::to_string(reg) + std::to_string(val)); //---??---ADXL345
+    gcmd.m_respond_info("ADXL345 REG = 0x%x" + std::to_string(reg) + std::to_string(val)); //---??---ADXL345
 }
 
 void ADXL345::cmd_ADXL345_DEBUG_WRITE(GCodeCommand &gcmd)

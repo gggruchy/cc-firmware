@@ -104,7 +104,7 @@ void SkewCorrection::cmd_GET_CURRENT_SKEW(GCodeCommand& gcmd)
         out += "\n" + planes[i];
         out += " Skew: " + std::to_string(factors[i]) + " radians" + std::to_string(factors[i] * 180 / M_PI) + "degrees";
     }
-    // gcmd.m_respond_info(out); //---??---SkewCorrection::
+    gcmd.m_respond_info(out); //---??---SkewCorrection::
 }
 
 void SkewCorrection::cmd_CALC_MEASURED_SKEW(GCodeCommand& gcmd)
@@ -113,7 +113,7 @@ void SkewCorrection::cmd_CALC_MEASURED_SKEW(GCodeCommand& gcmd)
     double bd = gcmd.get_double("BD", DBL_MIN, DBL_MIN, DBL_MAX, 0.);
     double ad = gcmd.get_double("AD", DBL_MIN, DBL_MIN, DBL_MAX, 0.);
     double factor = calc_skew_factor(ac, bd, ad);
-    // gcmd.m_respond_info("Calculated Skew: " + std::to_string(factors[i]) + " radians" + std::to_string(factors[i] * 180 / M_PI) + " degrees"); //---??---SkewCorrection
+    gcmd.m_respond_info("Calculated Skew: " + std::to_string(factors[i]) + " radians" + std::to_string(factors[i] * 180 / M_PI) + " degrees"); //---??---SkewCorrection
 }
         
 void SkewCorrection::cmd_SET_SKEW(GCodeCommand& gcmd)
@@ -170,7 +170,7 @@ void SkewCorrection::cmd_SKEW_PROFILE(GCodeCommand& gcmd)
         double yz_factor = m_skew_profiles_yz[name];
         if (xy_factor == DBL_MIN || xz_factor == DBL_MIN || yz_factor == DBL_MIN)
         {
-            // gcmd.m_respond_info("skew_correction:  Load failed, unknown profile " + name); //---??---
+            gcmd.m_respond_info("skew_correction:  Load failed, unknown profile " + name); //---??---
             return;
         }
         _update_skew(xy_factor, xz_factor, yz_factor);
@@ -186,9 +186,9 @@ void SkewCorrection::cmd_SKEW_PROFILE(GCodeCommand& gcmd)
         m_skew_profiles_xy[name] = Printer::GetInstance()->m_pconfig->GetDouble(cfg_name, "xy_skew");
         m_skew_profiles_xz[name] = Printer::GetInstance()->m_pconfig->GetDouble(cfg_name, "xz_skew");
         m_skew_profiles_yz[name] = Printer::GetInstance()->m_pconfig->GetDouble(cfg_name, "yz_skew");
-        // gcmd.m_respond_info("Skew Correction state has been saved to profile " + name + "\n \
-        //     for the current session.  The SAVE_CONFIG command will\n \
-        //     update the printer config file and restart the printer.");  //---??---
+        gcmd.m_respond_info("Skew Correction state has been saved to profile " + name + "\n \
+            for the current session.  The SAVE_CONFIG command will\n \
+            update the printer config file and restart the printer.");  //---??---
     }
     else if (gcmd.get_string("REMOVE", "") != "")
     {

@@ -556,7 +556,7 @@ void GCodeDispatch::cmd_default(GCodeCommand &gcmd)
         // Don't warn about requests to turn off fan when fan not present
         return;
     }
-    // gcmd.m_respond_info("unknown command: " + cmd, true);
+    gcmd.m_respond_info("unknown command: " + cmd, true);
     // serial_info("unknown command: " + cmd);
     std::cout << "unknown command: " << cmd << std::endl;
     // std::cout << "\r\n" << std::endl;

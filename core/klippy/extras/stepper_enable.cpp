@@ -181,7 +181,7 @@ bool PrinterStepperEnable::get_stepper_state(std::string stepper_name)
 {
     if (m_enable_lines.find(stepper_name) == m_enable_lines.end())
     {
-        // gcmd.m_respond_info("SET_STEPPER_ENABLE: Invalid stepper " + stepper_name, true);
+        gcmd.m_respond_info("SET_STEPPER_ENABLE: Invalid stepper " + stepper_name, true);
         return false;
     }
     EnableTracking *el = m_enable_lines[stepper_name];

@@ -296,7 +296,7 @@ std::map<std::string, CalibrationData *> ResonanceTester::_run_test(GCodeCommand
         Printer::GetInstance()->m_tool_head->manual_move(coord, m_move_speed);
         if (test_points.size() > 1)
         {
-            // gcmd.m_respond_info("Probing point (%.3f, %.3f, %.3f)", true);
+            gcmd.m_respond_info("Probing point (%.3f, %.3f, %.3f)", true);
         }
         for (auto axis : axes) // 测试多个轴
         {
@@ -336,9 +336,9 @@ std::map<std::string, CalibrationData *> ResonanceTester::_run_test(GCodeCommand
                     results = accel_chip.second->finish_measurements(); //-结束采样-SC-ADXL345-G-G-2-4----
                     if (raw_name_suffix != "")
                     {
-                        // raw_name = get_filename("raw_data", raw_name_suffix, axis, point);
-                        // results.write_to_file(raw_name);
-                        // gcmd.m_respond_info("Writing raw accelerometer data to ", true);
+                        raw_name = get_filename("raw_data", raw_name_suffix, axis, point);
+                        results.write_to_file(raw_name);
+                        gcmd.m_respond_info("Writing raw accelerometer data to ", true);
                     }
                     raw_values.push_back(make_pair(accel_chip.first, results));
                     gcmd.m_respond_info("-axis accelerometer stats: ", true);
@@ -407,11 +407,10 @@ void ResonanceTester::cmd_TEST_RESONANCES(GCodeCommand &gcmd)
     }
     std::vector<TestAxis *> axes = {axis};
     std::map<std::string, CalibrationData *> calibration_data = _run_test(gcmd, axes, helper, name_suffix);
-    if (csv_output)
-    {
-        // std::string csv_name = save_calibration_data("resonances", name_suffix, helper, axis, data);
-        // std::cout << "Resonances data written to file" << std::endl;
-    }
+    
+    std::string csv_name = save_calibration_data("resonances", name_suffix, helper, axis, data);
+    std::cout << "Resonances data written to file" << std::endl;
+    
     if (helper != nullptr)
         delete helper;
     for (auto &data : calibration_data)

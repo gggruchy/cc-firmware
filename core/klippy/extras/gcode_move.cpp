@@ -1,5 +1,9 @@
 #include "gcode_move.h"
 #include "klippy.h"
+#define LOG_TAG "gcodemove"
+#undef LOG_LEVEL
+#define LOG_LEVEL LOG_INFO
+#include "log.h"
 
 GCodeMove::GCodeMove(std::string section_name)
 {
