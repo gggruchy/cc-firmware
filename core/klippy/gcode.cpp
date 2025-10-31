@@ -717,22 +717,23 @@ void GCodeDispatch::cmd_STATUS(GCodeCommand &gcmd)
 
 void GCodeDispatch::cmd_HELP(GCodeCommand &gcmd)
 {
-    std::vector<std::string> cmdhelp;
+    std::vector<std::string> lines;
     if (!m_is_printer_ready)
-    {
-        cmdhelp.push_back("Printer is not ready - not all commands available.");
-    }
-    cmdhelp.push_back("Available extended commands:");
+        lines.push_back("Printer is not ready - not all commands available.");
+    lines.push_back("Available extended commands:");
 
-    for (auto it : gcode_handlers)
-    {
-        auto it_help = gcode_help.find(it.first);
-        if (it_help != gcode_help.end())
-        {
-            cmdhelp.push_back(it.first + ": " + it_help->second);
-        }
+    for (const auto &kv : gcode_handlers) {
+        if (auto it = gcode_help.find(kv.first); it != gcode_help.end())
+            lines.push_back(kv.first + ": " + it->second);
     }
-    gcmd.m_respond_info(cmdhelp, false);
+
+    std::string out;
+    out.reserve(1024);
+    for (size_t i = 0; i < lines.size(); ++i) {
+        out += lines[i];
+        out += (i + 1 < lines.size()) ? '\n' : '\0';
+    }
+    gcmd.m_respond_info(out, false);
 }
 
 GCodeIO::GCodeIO()
