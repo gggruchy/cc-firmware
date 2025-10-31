@@ -4,7 +4,7 @@
 // #include "Define_default.h"
 #include "Define_reference.h"
 
-extern klipper_print_config klipper_printer_para;
+//extern klipper_print_config klipper_printer_para;
 // //mcu
 // #define SERIAL klipper_printer_para.mcu.serial
 // //printer
