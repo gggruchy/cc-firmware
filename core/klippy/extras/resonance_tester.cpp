@@ -336,7 +336,6 @@ std::map<std::string, CalibrationData *> ResonanceTester::_run_test(GCodeCommand
                     results = accel_chip.second->finish_measurements(); //-结束采样-SC-ADXL345-G-G-2-4----
                     if (raw_name_suffix != "")
                     {
-                        raw_name = get_filename("raw_data", raw_name_suffix, axis, point);
                         results.write_to_file("/app/acceldata-" + axis->m_name + std::to_string(point) + ".csv");
                         gcmd.m_respond_info("Writing raw accelerometer data to ", true);
                     }
