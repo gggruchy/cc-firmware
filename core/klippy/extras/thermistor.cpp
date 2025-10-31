@@ -70,9 +70,10 @@ double Thermistor::calc_temp(std::string m_name, double adc)
         // 因此 R_thermistor = (R_total * R_inline)/(R_inline - R_total)
         if (m_inline_resistor - r > 1e-15)
             r_thermistor = (r * m_inline_resistor) / (m_inline_resistor - r);
+            printf("Thermistor::calc_temp adc:%f，r:%f，pullup:%f，inline_resistor:%f，r_thermistor:%f\n", adc, r, m_pullup, m_inline_resistor, r_thermistor);
         else
             r_thermistor = m_inline_resistor;
-        // printf("Thermistor::calc_temp adc:%f，r:%f，pullup:%f，inline_resistor:%f，r_thermistor:%f\n", adc, r, m_pullup, m_inline_resistor, r_thermistor);
+            printf("Thermistor::calc_temp adc:%f，r:%f，pullup:%f，inline_resistor:%f，r_thermistor:%f\n", adc, r, m_pullup, m_inline_resistor, r_thermistor);
         
         if (r > m_inline_resistor - INLINE_RESISTOR_OFFSET)
         {
