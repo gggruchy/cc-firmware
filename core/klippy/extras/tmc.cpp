@@ -401,11 +401,11 @@ void TMCCommandHelper::cmd_SET_TMC_CURRENT(GCodeCommand &gcmd)
     // Report values
     if (fabs(prev_hold_current) < 1e-15)
     {
-        gcmd.m_respond_info(m_name + " Run Current: " + to_string(prev_run_current) + "A", false);
+        gcmd.m_respond_info(m_name + " Run Current: " + to_string(prev_run_current) + "A", true);
     }
     else
     {
-        gcmd.m_respond_info(m_name + " Run Current: " + to_string(prev_run_current) + "A Hold Current: " + to_string(prev_hold_current) + "A", false);
+        gcmd.m_respond_info(m_name + " Run Current: " + to_string(prev_run_current) + "A Hold Current: " + to_string(prev_hold_current) + "A", true);
     }
 }
 

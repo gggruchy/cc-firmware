@@ -413,7 +413,7 @@ void BedMesh::cmd_BED_MESH_MAP(GCodeCommand &gcmd)
     }
     else
     {
-        gcmd.m_respond_info("Bed has not been probed"); //---??---bed_mesh
+        gcmd.m_respond_info("Bed has not been probed", true); //---??---bed_mesh
     }
 }
 

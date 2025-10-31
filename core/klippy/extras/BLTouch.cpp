@@ -326,7 +326,7 @@ void BLTouchEndstopWrapper::cmd_BLTOUCH_DEBUG(GCodeCommand& gcmd)
         return;
     }
 
-    gcmd.m_respond_info("Sending BLTOUCH_DEBUG COMMAND=" + cmd); //---??---
+    gcmd.m_respond_info("Sending BLTOUCH_DEBUG COMMAND=" + cmd, true); //---??---
     sync_print_time();
     send_cmd(cmd, m_pin_move_time);
     sync_print_time();

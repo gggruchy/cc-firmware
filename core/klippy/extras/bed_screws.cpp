@@ -162,7 +162,7 @@ void BedScrews::cmd_ACCEPT(GCodeCommand& gcmd)
     m_state = -1;
     std::vector<double> pos = {DBL_MIN, DBL_MIN, m_horizontal_move_z, DBL_MIN};
     move(pos, m_lift_speed);
-    gcmd.m_respond_info("Bed screws tool completed successfully");
+    gcmd.m_respond_info("Bed screws tool completed successfully", true);
 }
         
     
