@@ -247,7 +247,7 @@
              continue;
          }
          ret = read(fd, buf, 256);
-          printf("Cnt%d:read(%s)return%d.\r\n", i, DEBUG_SERIAL, ret);
+          //printf("Cnt%d:read(%s)return%d.\r\n", i, DEBUG_SERIAL, ret);
          serial_back_show(fd, buf, ret);
           print_serial(buf, ret);
         
