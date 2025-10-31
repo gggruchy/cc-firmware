@@ -1,8 +1,8 @@
 #include "gcode_move.h"
 #include "klippy.h"
-#define LOG_TAG "gcodemove"
+#define LOG_TAG "gcode_move"
 #undef LOG_LEVEL
-#define LOG_LEVEL LOG_INFO
+#define LOG_LEVEL LOG_DEBUG
 #include "log.h"
 
 GCodeMove::GCodeMove(std::string section_name)
@@ -192,7 +192,7 @@ void GCodeMove::cmd_G1(GCodeCommand &gcmd)
         m_speed = gcode_speed * m_speed_factor;
         if(m_speed <= 0.001)            //避免速度为0导致后面死机
         {
-            LOG_E("G1 F%d m_speed_factor:%f\n",(int)gcode_speed,m_speed_factor);
+            LOG_E("ERROR: G1 (speed here) m_speed_factor:%f\n",m_speed_factor);
             m_speed = 40;
         }
     }
