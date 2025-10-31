@@ -722,10 +722,12 @@ void GCodeDispatch::cmd_HELP(GCodeCommand &gcmd)
         lines.push_back("Printer is not ready - not all commands available.");
     lines.push_back("Available extended commands:");
 
-    for (const auto &kv : gcode_handlers) {
-        if (auto it = gcode_help.find(kv.first); it != gcode_help.end())
-            lines.push_back(kv.first + ": " + it->second);
-    }
+	for (const auto &kv : gcode_handlers) {
+		auto it = gcode_help.find(kv.first);
+		if (it != gcode_help.end()) {
+			lines.push_back(kv.first + ": " + it->second);
+		}
+	}
 
     std::string out;
     out.reserve(1024);
