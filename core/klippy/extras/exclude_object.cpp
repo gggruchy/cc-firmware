@@ -298,7 +298,7 @@ void ExcludeObject::cmd_EXCLUDE_OBJECT(GCodeCommand& gcmd)
     {
         if (m_current_object == "")
         {
-            gcmd.m_respond_error("There is no current object to cancel", true); //---??---ExcludeObject
+            gcmd.m_respond_info("There is no current object to cancel", true); //---??---ExcludeObject
         }
         else
         {
