@@ -39,6 +39,7 @@
 #include "aic_tlp.h"
 #endif
 #include "file_manager.h"
+#include "web.h"
 
 #define LOG_TAG "main"
 #undef LOG_LEVEL
@@ -160,8 +161,9 @@ int main(int argc, char *argv[])
 
     ui_init();
     app_init();
+    webserver_start();
 
-    //上电时删除本地与U盘.tmp后缀文件（复制文件过程中断电时，删除复制的文件）abc
+    //上电时删除本地与U盘.tmp后缀文件（复制文件过程中断电时，删除复制的文件）
     char disk_path[1024];
     if (hl_disk_get_default_mountpoint(HL_DISK_TYPE_USB, NULL, disk_path, sizeof(disk_path)) == 0)
         utils_vfork_system("rm %s/*.tmp", disk_path);
@@ -171,6 +173,9 @@ int main(int argc, char *argv[])
     // 断电续打
     pthread_t break_save_tid;
     pthread_create(&break_save_tid, NULL, break_save_task, NULL);
+
+	pthread_t webserver_tid;
+	pthread_create(&webserver_tid, NULL, webserver_task, NULL);
 
     while (1)
     {
