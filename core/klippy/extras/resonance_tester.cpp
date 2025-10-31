@@ -407,8 +407,8 @@ void ResonanceTester::cmd_TEST_RESONANCES(GCodeCommand &gcmd)
     std::vector<TestAxis *> axes = {axis};
     std::map<std::string, CalibrationData *> calibration_data = _run_test(gcmd, axes, helper, name_suffix);
     
-    std::string csv_name = save_calibration_data("resonances", name_suffix, helper, axis, data);
-    std::cout << "Resonances data written to file" << std::endl;
+    //std::string csv_name = save_calibration_data("resonances", name_suffix, helper, axis, data);
+    //std::cout << "Resonances data written to file" << std::endl;
     
     if (helper != nullptr)
         delete helper;
