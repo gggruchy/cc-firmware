@@ -192,7 +192,7 @@ void GCodeMove::cmd_G1(GCodeCommand &gcmd)
         m_speed = gcode_speed * m_speed_factor;
         if(m_speed <= 0.001)            //避免速度为0导致后面死机
         {
-            LOG_E("ERROR: G1 (speed here) m_speed_factor:%f\n",m_speed_factor);
+            LOG_I("ERROR: G1 (speed here) m_speed_factor:%f\n");
             m_speed = 40;
         }
     }
