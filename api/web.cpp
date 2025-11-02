@@ -218,7 +218,7 @@ static void handle_sdcp_command(struct mg_connection *c, const int cmd, mg_ws_me
             return;
         }
     }
-    LOG_I("SDCP handler not found\n");
+    LOG_I("SDCP handler not found for %d\n", cmd);
     mg_ws_send(c, "{}", 2, WEBSOCKET_OP_TEXT);
 }
 
